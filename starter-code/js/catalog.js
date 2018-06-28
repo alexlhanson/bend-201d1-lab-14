@@ -1,7 +1,6 @@
 /* global Product, Cart */
 
 'use strict';
-
 // Set up an empty cart for use on this page.
 var cart = new Cart([]);
 
@@ -68,6 +67,7 @@ function updateCartPreview() {
   var cartContentsNode = document.getElementById('cartContents');
   pEl.textContent = product + ' & ' + quantity;
   cartContentsNode.appendChild(pEl);
+
 }
 
 // Set up the "submit" event listener on the form.
@@ -79,3 +79,14 @@ catalogForm.addEventListener('submit', handleSubmit);
 // Before anything else of value can happen, we need to fill in the select
 // drop down list in the form.
 populateForm();
+
+if (localStorage.cartItems) {
+  cart.items = JSON.parse(localStorage.getItem('cartItems'));
+  for (var item in cart.items) {
+    var pEl = document.createElement('p');
+    var cartContentsNode = document.getElementById('cartContents');
+    pEl.textContent = cart.items[item].product + ' & ' + cart.items[item].quantity;
+    cartContentsNode.appendChild(pEl);
+  }
+
+}
