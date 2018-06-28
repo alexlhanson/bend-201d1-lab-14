@@ -12,18 +12,19 @@ function populateForm() {
   //TODO: Add an <option> tag inside the form's select for each product
   var selectElement = document.getElementById('items');
   for (var i in Product.allProducts) {
-
+    var optionEl = document.createElement('option');
+    optionEl.textContent = Product.allProducts[i].name;   
+    selectElement.appendChild(optionEl);
   }
-
 }
 
 // When someone submits the form, we need to add the selected item to the cart
 // object, save the whole thing back to local storage and update the screen
 // so that it shows the # of items in the cart and a quick preview of the cart itself.
 function handleSubmit(event) {
-
+  
   // TODO: Prevent the page from reloading
-
+  event.preventDefault();
   // Do all the things ...
   addSelectedItemToCart();
   cart.saveToLocalStorage();
