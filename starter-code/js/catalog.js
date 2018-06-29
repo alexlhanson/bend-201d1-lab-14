@@ -51,7 +51,7 @@ function updateCounter() {
 
   var cartCount = 0;
   for (var i = 0; i < cart.items.length; i++) {
-    cartCount += cart.items[i].quantity;
+    cartCount += parseInt(cart.items[i].quantity);
   }
   var cartNodeCount = document.getElementById('itemCount');
   cartNodeCount.textContent = cartCount;
@@ -81,12 +81,16 @@ catalogForm.addEventListener('submit', handleSubmit);
 populateForm();
 
 if (localStorage.cartItems) {
+  //reassigns cart array
   cart.items = JSON.parse(localStorage.getItem('cartItems'));
+
+  //re-adds preview of things in cart on refresh
   for (var item in cart.items) {
     var pEl = document.createElement('p');
     var cartContentsNode = document.getElementById('cartContents');
     pEl.textContent = cart.items[item].product + ' & ' + cart.items[item].quantity;
     cartContentsNode.appendChild(pEl);
   }
-
+  //Updates counter on refresh
+  updateCounter();
 }
